@@ -1,0 +1,116 @@
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+    <div class="card-header border-0">
+        <div class="card-title">
+            <h3 class="page-heading fw-bolder">New Website</h3>
+        </div>
+        <div class="card-toolbar">
+
+        </div>
+    </div>
+    <!-- end::Header -->
+    <div class="card-body row">
+        <!--begin::Input group-->
+        <div class="col-12 mb-3">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Title</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="text" class="form-control form-control-solid" name="title" [(ngModel)]="websiteModel.title"
+                #title="ngModel" required minlength="4" />
+            <div *ngIf="myForm.submitted && myForm.invalid"
+                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                <div *ngIf="title.errors?.['required']">Title is required</div>
+                <div *ngIf="title.errors?.['minlength']">Title must be at least 4 characters long</div>
+            </div>
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+
+        <!--begin::Input group-->
+        <div class="col-12 mb-3">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Url</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="url" class="form-control form-control-solid" name="url" [(ngModel)]="websiteModel.url"
+                pattern="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                #url="ngModel" required minlength="4" />
+            <div *ngIf="myForm.submitted && myForm.invalid"
+                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                <div *ngIf="url.errors?.['required']">Url is required</div>
+                <div *ngIf="url.errors?.['pattern']">Url is not valid</div>
+            </div>
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+
+        <!--begin::Input group-->
+        <div class="col-6">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">
+                <span>Frequency Scrape</span>
+                <span class="ms-1" placement="end" ngbTooltip="Frequency scrape is the period for the recurring task.">
+                    <app-keenicon name="information" class="fs-7"></app-keenicon>
+                </span>
+            </label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <select class="form-control form-control-solid" name="frequency" [(ngModel)]="websiteModel.frequency"
+                #frequency="ngModel" required>
+                <option value="" disabled>Select Frequency</option>
+                <option value="D">Daily</option>
+                <option value="W">Weekly</option>
+                <option value="M">Monthly</option>
+            </select>
+            <div *ngIf="myForm.submitted && myForm.invalid"
+                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                <div *ngIf="frequency.errors?.['required']">Scrapping frequency is required</div>
+            </div>
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+
+        <!--begin::Input group-->
+        <div class="col-6">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">
+                <span>Status</span>
+                <span class="ms-1" placement="end" ngbTooltip="Status can be used to scrap or not.">
+                    <app-keenicon name="information" class="fs-7"></app-keenicon>
+                </span>
+            </label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <select class="form-control form-control-solid" name="status" [(ngModel)]="websiteModel.status"
+                #status="ngModel" required>
+                <option value="" disabled>Select status</option>
+                <option value="Active">Active</option>
+                <option value="InActive">InActive</option>
+            </select>
+            <div *ngIf="myForm.submitted && myForm.invalid"
+                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                <div *ngIf="status.errors?.['required']">User status is required</div>
+            </div>
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <!--begin::Button-->
+        <button type="reset" id="kt_modal_update_customer_cancel" class="btn btn-light me-3">
+            Discard
+        </button>
+        <!--end::Button-->
+
+        <!--begin::Button-->
+        <button type="submit" class="btn btn-info text-white">
+            <span class="indicator-label">
+                Submit
+            </span>
+            <span class="indicator-progress">
+                Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+        </button>
+        <!--end::Button-->
+    </div>
+</form>

@@ -1,0 +1,107 @@
+<div class="row gap-3">
+    <!--begin::Distributions List-->
+    <div class="card col-xl">
+        <div class="card-header border-0 ">
+            <!--begin::Card title-->
+            <div class="card-title">
+                <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 my-0">Distributions</h1>
+                <!--begin::Search-->
+                <!-- <div class="d-flex align-items-center position-relative my-1">
+                    <app-keenicon name="magnifier" class="fs-3 position-absolute ms-5"></app-keenicon>
+                    <input type="text" data-action="filter" class="form-control form-control-solid w-250px ps-12"
+                        placeholder="Search Agents">
+                </div> -->
+                <!--end::Search-->
+            </div>
+            <!--begin::Card title-->
+
+            <!--begin::Search-->
+            <div *ngIf="!selected && !addDistributionMode" class="d-flex align-items-center position-relative my-1">
+                <app-keenicon name="magnifier" class="fs-3 position-absolute ms-5"></app-keenicon>
+                <input type="text" data-action="filter" class="form-control form-control-solid w-250px ps-12"
+                    placeholder="Search Distributions">
+            </div>
+            <!--end::Search-->
+
+            <!--begin::Card toolbar-->
+            <div class="card-toolbar">
+                <!--begin::Toolbar-->
+                <div class="d-flex justify-content-end">
+                    <!--begin::Add agent-->
+                    <button type="button" class="btn btn-info text-light me-3 d-flex align-items-center"
+                        [routerLink]="['']">
+                        <!--data-action="create"-->
+                        <app-keenicon name="icon" class="fs-3 me-2"></app-keenicon>
+                        Distributions
+                    </button>
+                    <!--end::Add agent-->
+                    <!--begin::Add New-->
+                    <button type="button" class="btn btn-info text-light d-flex align-items-center"
+                        (click)="activeAdd()">
+                        <!--data-action="create"-->
+                        <ng-container *ngIf="addDistributionMode; else elseTemplate">
+                            <app-keenicon name="cross" class="fs-3 me-2"></app-keenicon>
+                            Close
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <app-keenicon name="plus" class="fs-3 me-2"></app-keenicon>
+                            New
+                        </ng-template>
+                    </button>
+                    <!--end::Add New-->
+                </div>
+                <!--end::Toolbar-->
+            </div>
+            <!--end::Card toolbar-->
+        </div>
+
+        <div class="card-body pt-0">
+            <!-- <app-crud [datatableConfig]="datatableConfig" route="/apps/agents" (deleteEvent)="delete($event)" (editEvent)="edit($event)" (createEvent)="create()" [reload]="reloadEvent" [modal]="formModal"></app-crud> -->
+            <table class="table align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="text-info text-info fw-bold">Vector</th>
+                        <th class="text-info text-info fw-bold">Full Name</th>
+                        <th class="text-info text-info fw-bold">Email</th>
+                        <th class="text-info text-info fw-bold">Company</th>
+                        <th class="text-info text-info fw-bold text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="distributions$ | async as distributionsData">
+                        <tr *ngFor="let distribution of distributionsData"
+                            [ngClass]="{'bg-light': selected == distribution._id,'rounded-5': selected == distribution._id}">
+                            <td class="text-center">
+                                <img src="./assets/media/svg/avatar/blank.svg" alt="" style="width: 45px; height: 45px"
+                                    class="object-fit-cover rounded-circle" />
+                            </td>
+                            <td>
+                                <p class="fw-bolder mb-1">{{ distribution.name }}</p>
+                            </td>
+                            <td>
+                                <p class="fw-normal mb-1">{{ distribution.email }}</p>
+                            </td>
+                            <td>{{ distribution.company }}</td>
+                            <td class="text-center">
+                                <a [ngbTooltip]="tipConfirm" triggers="click:blur" role="button">
+                                    <app-keenicon name="trash" class="fs-3 text-danger"></app-keenicon>
+                                </a>
+                                <ng-template #tipConfirm>Sure ?, If it's yes click <b role="button"  class="text-danger">Remove</b></ng-template>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <span class="spinner-border spinner-border-sm align-middle"></span> Loading...
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--end::Distributions List-->
+
+    <!-- begin: Form -->
+    <div *ngIf="addDistributionMode" class="col-xl-4 card card-xl-stretch">
+        <app-new></app-new>
+    </div>
+    <!-- end: Form -->
+</div>

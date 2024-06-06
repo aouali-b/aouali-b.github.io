@@ -1,0 +1,47 @@
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToBottom {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.modal-custom {
+    .modal-dialog {
+        position: fixed;
+        bottom: 0;
+        margin: 0;
+        width: 80%;
+        max-width: none;
+        height: 60%;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        transform: translateY(50%);
+        /* Centering vertically */
+    }
+
+    &.show .modal-dialog {
+        animation: slideInFromBottom 0.3s forwards;
+        transform: translateY(0);
+        /* Reset transform to center vertically */
+    }
+
+    &.fade .modal-dialog.slide-out {
+        animation: slideOutToBottom 0.3s forwards;
+    }
+}

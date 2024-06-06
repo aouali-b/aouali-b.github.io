@@ -1,0 +1,50 @@
+/* Custom modal animation from the bottom */
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToBottom {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.modal-content {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.modal-custom {
+    .modal-dialog {
+        position: fixed;
+        bottom: 0;
+        left: 10.7%;
+        margin: 0;
+        width: 78.5%;
+        max-width: none;
+        height: 60%;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
+
+    &.show .modal-dialog {
+        animation: slideInFromBottom 0.3s forwards;
+    }
+
+    &.fade .modal-dialog.slide-out {
+        animation: slideOutToBottom 0.3s forwards;
+    }
+}

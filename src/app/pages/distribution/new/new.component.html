@@ -1,0 +1,82 @@
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+    <div class="card-header border-0">
+        <div class="card-title">
+            <h3 class="page-heading fw-bolder">New Distribution</h3>
+        </div>
+        <div class="card-toolbar">
+
+        </div>
+    </div>
+    <!-- end::Header -->
+    <div class="card-body row">
+        <!--begin::Input group-->
+        <div class="col-12 mb-3">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Name</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="text" class="form-control form-control-solid" name="name" [(ngModel)]="distributionModel.name"
+                #name="ngModel" required minlength="4" />
+            <div *ngIf="myForm.submitted && myForm.invalid"
+                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                <div *ngIf="name.errors?.['required']">Name is required</div>
+                <div *ngIf="name.errors?.['minlength']">Name must be at least 4 characters long</div>
+            </div>
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+
+        <!--begin::Input group-->
+        <div class="col-12 mb-3">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Email</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="email" class="form-control form-control-solid" name="email" [(ngModel)]="distributionModel.email"
+                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+                #email="ngModel" required />
+            <div *ngIf="myForm.submitted && myForm.invalid"
+                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                <div *ngIf="email.errors?.['required']">Email is required</div>
+                <div *ngIf="email.errors?.['pattern']">Email is not valid</div>
+            </div>
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+
+       
+        <!--begin::Input group-->
+        <div class="col-12 mb-3">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Company Name</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="text" class="form-control form-control-solid" name="company" [(ngModel)]="distributionModel.company"
+                #company="ngModel" required />
+            <div *ngIf="myForm.submitted && myForm.invalid"
+                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                <div *ngIf="company.errors?.['required']">Name is required</div>
+            </div>
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <!--begin::Button-->
+        <button type="reset" id="kt_modal_update_customer_cancel" class="btn btn-light me-3">
+            Discard
+        </button>
+        <!--end::Button-->
+
+        <!--begin::Button-->
+        <button type="button" class="btn btn-info text-white">
+            <span class="indicator-label">
+                Submit
+            </span>
+            <span class="indicator-progress">
+                Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+        </button>
+        <!--end::Button-->
+    </div>
+</form>

@@ -1,0 +1,49 @@
+<div class="card-header border-0">
+  <div class="card-title">
+    <h3 class="page-heading fw-bolder">{{ name }} articles</h3>
+  </div>
+  <!--begin::Search-->
+  <div class="d-flex align-items-center position-relative my-1">
+    <app-keenicon name="magnifier" class="fs-3 position-absolute ms-5"></app-keenicon>
+    <input type="text" data-action="filter" class="form-control form-control-solid w-250px ps-12"
+      placeholder="Search Articles">
+  </div>
+  <!--end::Search-->
+</div>
+<div class="card-body">
+  <ng-container *ngIf="articles; else loading">
+    <div class="row g-5 g-xl-8">
+      <div [ngClass]="{'col-xl-12': selected == article._id, 'col-xl-4': selected != article._id}" *ngFor="let article of articles" (click)="selected = article._id">
+        <button *ngIf="selected == article._id" type="button" class="btn-close" aria-label="Close" (click)="unSelect()" ></button>
+        <app-stats-widget1 class="card bgi-no-repeat card-xl-stretch mb-xl-8" [title]="article.title"
+          [date]="article.dateString" [description]="article.content" 
+          [is_new]="article.is_new" [url]="article.link"
+          [ngStyle]="{
+            'background-position': 'right top',
+            'background-size': '30% auto',
+            'background-image': 'url(./assets/media/svg/shapes/abstract-4.svg)'
+          }"></app-stats-widget1>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <span class="spinner-border spinner-border-sm align-middle"></span> Loading...
+  </ng-template>
+
+
+</div>
+<!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.update({ centered: false })">
+      Update size
+    </button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.update({ centered: true })">
+      Update centered
+    </button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.update({ backdropClass: 'light-blue-backdrop' })">
+      Update backdropClass
+    </button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.update({ fullscreen: true })">
+      Update fullscreen
+    </button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div> -->
